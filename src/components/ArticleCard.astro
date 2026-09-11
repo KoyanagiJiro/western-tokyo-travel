@@ -1,0 +1,15 @@
+---
+import type { Article } from '../lib/articles';
+import { getArticlePath } from '../lib/articles';
+
+interface Props { article: Article }
+const { article } = Astro.props;
+const date = article.data.publishDate.toLocaleDateString('en', { dateStyle: 'long' });
+---
+
+<article class="article-card">
+  <p class="eyebrow">{article.data.contentType} · <time datetime={article.data.publishDate.toISOString()}>{date}</time></p>
+  <h2><a href={getArticlePath(article)}>{article.data.title}</a></h2>
+  <p>{article.data.excerpt}</p>
+  {article.data.tags && <ul class="tag-list" aria-label="Topics">{article.data.tags.map((tag) => <li>{tag}</li>)}</ul>}
+</article>

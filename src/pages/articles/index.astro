@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getPublishedArticles } from '../../lib/articles';
+
+const articles = await getPublishedArticles();
+---
+
+<BaseLayout title="Articles" description="Articles on walking, local history, cultural landscapes and independent travel planning in Western Tokyo.">
+  <div class="page-shell page-header">
+    <p class="eyebrow">Field notes and guides</p>
+    <h1>Articles</h1>
+    <p>Walking, history, cultural landscapes and practical planning across Western Tokyo.</p>
+  </div>
+  <div class="page-shell article-list">{articles.map((article) => <ArticleCard article={article} />)}</div>
+</BaseLayout>
