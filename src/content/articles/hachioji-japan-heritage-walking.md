@@ -1,15 +1,11 @@
 ---
-title: "Walking Hachioji’s Japan Heritage: Mt. Takao, Hachioji Castle and Kinu-no-Michi"
+title: "Walking Hachioji\u2019s Japan Heritage: Mt. Takao, Hachioji Castle and Kinu-no-Michi"
 description: "Compare Mt. Takao, Hachioji Castle and Kinu-no-Michi in Hachioji, with official route information, terrain distinctions and planning cautions."
-slug: hachioji-japan-heritage-walking
-publishDate: 2026-09-11
-contentType: editorial
-excerpt: "Hachioji’s Japan Heritage story connects a mountain of faith, a castle site and a silk-trade road—but these are three different visitor experiences, not one continuous walk."
+slug: "hachioji-japan-heritage-walking"
+publishDate: "2026-09-12"
+contentType: "editorial"
+excerpt: "Hachioji\u2019s Japan Heritage story connects a mountain of faith, a castle site and a silk-trade road\u2014but these are three different visitor experiences, not one continuous walk."
 draft: false
-tags:
-  - Hachioji
-  - walking
-  - local history
 ---
 
 Hachioji’s official Japan Heritage story can be approached through three very different landscapes: a mountain of continuing religious practice, the remains of a mountain castle, and a historic road associated with silk trade. For independent travelers looking beyond central Tokyo, that makes Hachioji walking less a matter of finding one all-purpose route than choosing the kind of history—and the level of physical commitment—you want.
