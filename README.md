@@ -100,4 +100,50 @@ A future Publisher stage should transform only a Human Editor-approved Publicati
 
 ## Current limitations
 
-This foundation does not implement the Publisher stage, deployment, CMS, database, authentication, comments, search, newsletter, analytics, consent, multilingual content, automated translation, image pipeline or any affiliate/API integration. The related-articles region is intentionally an empty, non-linked placeholder. No affiliate CTA is inserted automatically for any content type.
+This foundation does not implement the Publisher stage, CMS, database, authentication, comments, search, newsletter, analytics, consent, multilingual content, automated translation, image pipeline or any affiliate/API integration. The related-articles region is intentionally an empty, non-linked placeholder. No affiliate CTA is inserted automatically for any content type.
+
+## Cloudflare Workers deployment
+
+This entirely static Astro site follows Cloudflare's [static Astro configuration](https://developers.cloudflare.com/workers/framework-guides/web-apps/astro/#if-you-have-a-static-site). Astro pre-renders the site into `dist/`; Workers Static Assets serves those files. No Cloudflare adapter, SSR, Worker entrypoint (`main`), server code, or asset binding is needed. `astro.config.mjs` remains `output: 'static'`.
+
+```text
+GitHub main
+→ Cloudflare Workers Builds
+→ npm install
+→ npm run build
+→ dist/
+→ wrangler deploy
+→ Cloudflare Workers Static Assets
+```
+
+After Human Editor review and a separate commit/push, connect the repository in Cloudflare Dashboard using Workers Builds (not Pages):
+
+| Setting | Value |
+| --- | --- |
+| GitHub repository | western-tokyo-travel |
+| Worker name | western-tokyo-travel (matches wrangler.jsonc) |
+| Production branch | main |
+| Root directory | Repository root |
+| Build command | npm run build |
+| Deploy command | npx wrangler deploy |
+| Build environment variable | SITE_URL=https://<production-domain> |
+
+Workers Builds installs npm dependencies before running the build. Keep `package-lock.json` in Git so the Wrangler dependency resolves reproducibly. Use a Node.js version supported by both installed Astro and Wrangler; this setup was validated with Node.js 26.8.2. Wrangler 4.131.1 requires Node.js >=22.0.0; the existing Astro version has its own requirements. See [Workers Builds configuration](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/).
+
+Set `SITE_URL` as a **Build environment variable**, not a Worker runtime variable. Without it, canonical URLs, sitemap URLs and the sitemap reference in robots.txt use the existing `https://example.com` fallback. Once the initial workers.dev URL is known, set that complete HTTPS origin as `SITE_URL` and rebuild before treating the site as production. When switching to a custom domain, update `SITE_URL` to that origin and rebuild again. No actual production domain is stored in this repository. `.env` and local environment variants are ignored; `.env.example` contains only a placeholder.
+
+`wrangler.jsonc` serves only `./dist`. Its `assets.not_found_handling: "404-page"` uses the existing `src/pages/404.astro` output, `dist/404.html`, for unmatched routes with HTTP 404. See [Cloudflare custom 404 routing](https://developers.cloudflare.com/workers/static-assets/routing/static-site-generation/). The existing robots.txt and sitemap generation remain unchanged.
+
+Local commands use the development dependency, with no global Wrangler installation:
+
+```sh
+npm install
+npm run check
+npm run build
+npx wrangler deploy --dry-run
+npm run cf:dev
+```
+
+`cf:dev` builds and starts local Wrangler preview. `npm run cf:deploy` builds and performs a **real deployment**; run it only when publication is approved. Workers Builds should use the separate build/deploy commands in the table to avoid building twice. GitHub pushes to the connected production branch trigger Cloudflare's build/deploy integration; no GitHub Actions workflow is used.
+
+Repository configuration alone does not connect GitHub or deploy the site. Dashboard connection and the first real deployment are separate Human Editor actions. No account IDs, tokens, secrets, backend services or custom-domain routes are required in the repository configuration.

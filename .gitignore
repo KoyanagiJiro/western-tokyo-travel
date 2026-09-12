@@ -5,3 +5,6 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Wrangler local state
+.wrangler/
