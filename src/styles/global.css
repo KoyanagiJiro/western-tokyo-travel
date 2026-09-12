@@ -50,13 +50,20 @@ nav a[aria-current='page'] { text-decoration: underline; text-decoration-thickne
 .page-header h1 { margin: .25rem 0; }
 .article-page { padding-bottom: 5rem; }
 .article-header { width: min(calc(100% - 2rem), 58rem); margin: 0 auto; padding-block: clamp(3rem, 8vw, 6rem) 2.5rem; }
-.article-header h1 { margin: .35rem 0 1rem; }
+.article-header h1 { margin: .35rem 0 1rem; overflow-wrap: anywhere; }
 .dek { max-width: 44rem; color: var(--muted); font-size: 1.25rem; }
 .article-dates { color: var(--muted); font-family: ui-sans-serif, system-ui, sans-serif; font-size: .82rem; }
 .hero-image { width: min(calc(100% - 2rem), var(--max)); margin: 0 auto 3rem; }
 .prose { width: min(calc(100% - 2rem), var(--reading)); margin-inline: auto; }
 .prose h2 { margin-top: 2.5em; }
+.prose h3 { margin-top: 2em; }
 .prose p, .prose li { max-width: 68ch; }
+.prose ul, .prose ol { margin-block: 1.25rem; padding-left: 1.4rem; }
+.prose li + li { margin-top: .4rem; }
+.prose a { font-weight: 600; overflow-wrap: anywhere; text-decoration-thickness: .08em; }
+.prose table { display: block; width: 100%; max-width: 100%; margin-block: 2rem; overflow-x: auto; border-collapse: collapse; font-family: ui-sans-serif, system-ui, sans-serif; font-size: .88rem; line-height: 1.5; -webkit-overflow-scrolling: touch; }
+.prose th, .prose td { min-width: 10rem; padding: .7rem .8rem; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+.prose th { background: var(--surface); color: var(--ink); }
 .prose blockquote { margin-inline: 0; padding-left: 1.25rem; border-left: 3px solid var(--accent); color: var(--muted); }
 .related { width: min(calc(100% - 2rem), var(--reading)); margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid var(--line); }
 .related p { color: var(--muted); }
@@ -66,6 +73,11 @@ nav a[aria-current='page'] { text-decoration: underline; text-decoration-thickne
 .footer-inner { font-family: ui-sans-serif, system-ui, sans-serif; font-size: .84rem; }
 .footer-inner p { max-width: 48rem; }
 .future-links { color: #68726b; }
+
+@media (min-width: 56rem) {
+  .prose table { display: table; width: min(62rem, calc(100vw - 3rem)); max-width: none; margin-left: 50%; overflow: visible; table-layout: fixed; transform: translateX(-50%); }
+  .prose th, .prose td { min-width: 0; }
+}
 
 @media (max-width: 42rem) {
   .header-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 1rem; }
